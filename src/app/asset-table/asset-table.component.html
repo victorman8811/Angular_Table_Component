@@ -1,0 +1,49 @@
+<table border="5">
+
+  <tr>
+    <td *ngFor="let item of displayedColumns">{{item}}</td>
+  </tr>
+
+
+  <ng-container *ngFor="let data of resultData">
+
+    <tr *ngFor="let member of data.members; let i = index">
+      <td *ngIf="i == 0" [attr.rowspan]="data.length+1">{{data.members[0].owner}}</td>
+
+      <ng-container *ngFor="let object of member | keyvalue: keepOrder">
+
+        <td *ngIf="object.key!='owner'">{{object.value}}</td>
+
+      </ng-container>
+
+    </tr>
+
+    <tr>
+
+      <ng-container *ngFor="let object of resultData[0].members[0] | keyvalue: keepOrder  ;let i = index;">
+
+        <td [attr.colspan]="i" *ngIf="object.key=='sec'">小計</td>
+
+        <td *ngIf="i > 3"></td>
+
+
+      </ng-container>
+
+    </tr>
+
+  </ng-container>
+
+
+  <ng-container *ngFor="let object of resultData[0].members[0] | keyvalue: keepOrder  ;let i = index;">
+
+    <td [attr.colspan]="i+1" *ngIf="object.key=='sec'">總計</td>
+
+    <td *ngIf="i > 3"></td>
+
+
+
+  </ng-container>
+
+
+
+</table>
